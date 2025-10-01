@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AFAAN Header</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#000;
+      --text:#fff;
+      --box:#0c0c0c;
+      --border:#333;
+      --gold:#c7981d;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:#111;color:var(--text)}
+
+    /* ===== Header (desktop baseline) ===== */
+    header{
+      background:var(--bg);
+      height:110px;
+      display:flex;
+      align-items:center;
+      border-top:1px solid #2b1a1a;
+      position:relative;
+      z-index:20;
+    }
+    .container{
+      width:92%;
+      max-width:1320px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    /* Left: Logo */
+    .logo img{width:220px;display:block}
+
+    /* Center: Nav */
+    nav.nav-desktop{
+      display:flex;
+      gap:27px;
+      flex:1;
+      justify-content:center;
+      align-items:center;
+    }
+    nav.nav-desktop a{
+      color:var(--text);
+      font-weight:500;
+      font-size:14px;
+      text-decoration:none;
+      position:relative;
+      white-space:nowrap;
+    }
+    .nav-shop{position:relative}
+    .nav-shop::before{
+      content:"GLOVES";
+      position:absolute;
+      top:-20px; left:50%; transform:translateX(-50%);
+      background:var(--gold); color:#fff;
+      font-size:11px; font-weight:600;
+      padding:2px 6px;
+      border-radius:2px;
+    }
+
+    /* Right: Search + Language box */
+    .right{display:flex;align-items:center;gap:18px}
+    .search{color:#fff;font-size:20px;cursor:pointer;line-height:1}
+    .lang-box{
+      background:var(--box);
+      border:1px solid var(--border);
+      padding:10px 14px;
+      min-width:120px;
+      display:flex;align-items:center;justify-content:space-between;
+      font-size:15px;font-weight:500;cursor:pointer;border-radius:2px;
+    }
+    .lang-box i{margin-left:8px;font-size:12px}
+
+    /* ===== Mobile / Tablet Controls ===== */
+    .burger{
+      display:none; /* shown on <= 992px */
+      width:42px;height:42px;border:1px solid #222;border-radius:6px;
+      align-items:center;justify-content:center;cursor:pointer;
+      color:#fff;background:#0b0b0b;
+    }
+
+    /* Mobile menu panel (hidden by default) */
+    .mobile-panel{
+      position:fixed; left:0; right:0; top:110px;
+      background:#000; border-top:1px solid #1e1e1e;
+      transform:translateY(-8px); opacity:0; visibility:hidden;
+      transition:opacity .2s ease, transform .2s ease, visibility .2s;
+      z-index:15;
+    }
+    .mobile-panel.open{
+      transform:translateY(0); opacity:1; visibility:visible;
+    }
+    .mobile-nav{
+      width:92%; max-width:1320px; margin:0 auto; padding:14px 0 18px;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .mobile-nav a{
+      color:#fff; text-decoration:none; font-weight:500; font-size:16px;
+      padding:10px 4px; display:flex; align-items:center; gap:10px;
+      border-bottom:1px solid #141414;
+    }
+    .tag{
+      background:var(--gold); color:#fff; font-size:10px; font-weight:700;
+      padding:2px 6px; border-radius:2px; margin-left:auto;
+    }
+    .mobile-tools{
+      display:flex; gap:12px; align-items:center; padding:12px 0 2px;
+    }
+    .lang-box--mobile{flex:1}
+
+    /* ====== Responsiveness ====== */
+
+    /* Large laptops: tighten a bit */
+    @media (max-width: 1200px){
+      .logo img{width:200px}
+      nav.nav-desktop{gap:22px}
+      .lang-box{min-width:110px;padding:9px 12px}
+      header{height:100px}
+      .mobile-panel{top:100px}
+    }
+
+    /* Tablets: show burger, hide desktop nav */
+    @media (max-width: 992px){
+      header{height:88px}
+      .mobile-panel{top:88px}
+      .logo img{width:185px}
+      nav.nav-desktop{display:none}
+      .burger{display:flex}
+      .right{gap:12px}
+      .lang-box{padding:8px 10px;min-width:100px;font-size:14px}
+    }
+
+    /* Phones: stack tighter */
+    @media (max-width: 768px){
+      .container{gap:10px}
+      .logo img{width:165px}
+      .search{font-size:18px}
+      .lang-box{padding:8px 10px;min-width:92px;font-size:13px}
+      .mobile-nav a{font-size:15px}
+    }
+
+    @media (max-width: 480px){
+      .logo img{width:150px}
+      .lang-box{display:none} /* keep top-right clean on very small */
+      .mobile-tools .lang-box{display:flex}
+      .right{gap:8px}
+    }
+
+
+
+    /* hero section */
+
+      :root{
+    --gold:#c7981d;
+    --panel:rgba(0,0,0,.55);
+    --panel-strong:rgba(0,0,0,.65);
+    --white:#fff;
+    --muted:#cfd2d6;
+    --arrow-bg:rgba(0,0,0,.35);
+    --arrow-bg-hover:rgba(0,0,0,.55);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family: "Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#111;color:#fff}
+
+  /* ===== Slider ===== */
+  .hero-slider{
+    position:relative;
+    width:100%;
+    height:100vh;               /* full screen hero */
+    min-height:540px;
+    overflow:hidden;
+  }
+  .slides{
+    position:relative; height:100%;
+  }
+  .slide{
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    opacity:0; transform:scale(1.02);
+    transition:opacity .6s ease, transform .8s ease;
+  }
+  .slide.active{
+    opacity:1; transform:scale(1);
+    z-index:2;
+  }
+
+  /* gradient soft vignette for readability */
+  .slide::after{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(1000px 100% at 20% 50%, transparent 0, rgba(0,0,0,.35) 70%),
+                linear-gradient( to right, rgba(0,0,0,.25), rgba(0,0,0,.15) 40%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.35) );
+    pointer-events:none;
+  }
+
+  /* ===== Content panel ===== */
+  .panel{
+    position:absolute; top:50%;
+    transform:translateY(-50%);
+    width:min(680px, 92vw);
+    background:var(--panel);
+    padding:34px 30px;
+    backdrop-filter:saturate(110%) blur(1px);
+  }
+  .content-right{ right:6%; }
+  .content-left { left:6%;  }
+  .panel strong.h1{
+    display:block; font-weight:800; line-height:1.06;
+    font-size: clamp(28px, 4.6vw, 56px);
+    letter-spacing:.5px;
+  }
+  .panel .sub{
+    display:block; color:var(--gold); font-weight:800;
+    font-size: clamp(22px, 4vw, 48px);
+    margin-top:6px;
+  }
+  .badge{
+    display:inline-block; margin:18px 0 14px;
+    background:var(--gold); color:#fff; font-weight:700;
+    padding:10px 18px; border-radius:6px;
+    font-size: clamp(16px, 2.2vw, 26px);
+    box-shadow:0 6px 0 rgba(199,152,29,.35);
+  }
+  .desc{
+    color:#e7e7e7; line-height:1.7; letter-spacing:.3px;
+    font-size: clamp(13px, 1.5vw, 16px);
+  }
+  .cta{
+    display:inline-block; margin-top:22px;
+    background:var(--gold); color:#fff; text-decoration:none;
+    font-weight:700; padding:13px 22px; border-radius:4px;
+  }
+
+  /* ===== Arrows ===== */
+  .arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; background:var(--arrow-bg);
+    cursor:pointer; z-index:5; transition:background .2s ease;
+  }
+  .arrow:hover{ background:var(--arrow-bg-hover); }
+  .arrow.left{ left:20px; }
+  .arrow.right{ right:20px; }
+
+  /* ===== Dots ===== */
+  .dots{ position:absolute; left:50%; transform:translateX(-50%); bottom:18px; display:flex; gap:10px; z-index:4;}
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(255,255,255,.45); cursor:pointer;
+  }
+  .dot.active{ background:#fff; }
+
+  /* ===== Responsive tweaks ===== */
+  @media (max-width: 992px){
+    .panel{ padding:26px 24px; }
+  }
+  @media (max-width: 640px){
+    .hero-slider{ min-height:520px }
+    .panel{ width:92vw; left:50%!important; right:auto; transform:translate(-50%,-50%);} /* center panel on small screens */
+    .slide::after{ background: linear-gradient( to bottom, rgba(0,0,0,.15), rgba(0,0,0,.6) 60% ); }
+  }
+
+
+
+
+  /* under hero */
+
+
+   :root{
+    --gap: 24px;
+    --radius: 4px;
+    --gold: #c7981d;
+    --overlay: rgba(0,0,0,.55);
+    --overlay-strong: rgba(0,0,0,.65);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#111;color:#fff}
+
+  /* ========= Feature Slider ========= */
+  .feature-slider{
+    background:#fff;                 /* white section like your shot */
+    padding:22px 0 36px;             /* a bit of breathing room */
+  }
+  .fs-wrap{
+    position:relative;
+    width:92%;
+    max-width:1320px;
+    margin:0 auto;
+  }
+
+  /* Viewport uses scroll-snap (smooth, native, mobile-friendly) */
+  .fs-viewport{
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width:none;
+  }
+  .fs-viewport::-webkit-scrollbar{display:none}
+
+  .fs-track{
+    display:flex;
+    gap:var(--gap);
+    padding-bottom:4px;              /* space so focus ring/arrows don’t clip */
+  }
+
+  /* Card */
+  .fs-card{
+    position:relative;
+    flex:0 0 calc(33.333% - var(--gap) * 2 / 3); /* 3 per row on desktop */
+    min-height: 300px;
+    border-radius: var(--radius);
+    overflow:hidden;
+    scroll-snap-align: start;
+    background:#000;
+    isolation:isolate;               /* layer context for overlays */
+  }
+  /* Tablet: 2 per view */
+  @media (max-width: 1024px){
+    .fs-card{flex-basis: calc(50% - var(--gap)/2)}
+  }
+  /* Mobile: 1 per view */
+  @media (max-width: 640px){
+    .fs-card{flex-basis: 100%}
+  }
+
+  /* Background image (crisp with object-fit) */
+  .fs-bg{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    image-rendering:auto;
+    transform: translateZ(0);  /* avoids softening from compositing */
+    z-index:0;
+  }
+
+  /* Dark overlay + soft gradient like the screenshot */
+  .fs-card::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, var(--overlay) 0%, var(--overlay-strong) 100%);
+    z-index:1;
+  }
+
+  /* Text overlay */
+  .fs-content{
+    position:relative; z-index:2;
+    padding:36px 28px;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    height:100%;
+    max-width: 600px;
+  }
+  .fs-title{
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 14px;
+  }
+  .fs-desc{
+    font-size: clamp(14px, 1.6vw, 18px);
+    line-height: 1.55;
+    color:#e9e9e9;
+    margin: 0 0 22px;
+  }
+  .fs-link{
+    margin-top:auto;
+    align-self:flex-start;
+    color:#fff; text-decoration:none; font-weight:700; letter-spacing:.3px;
+    border-bottom:2px solid rgba(255,255,255,.35);
+    padding-bottom:4px;
+  }
+  .fs-link:hover{ border-bottom-color:#fff }
+
+  /* Arrows */
+  .fs-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:42px; height:42px; border-radius:50%;
+    background:#1a1a1a; color:#fff; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+    opacity:.9;
+  }
+  .fs-arrow:hover{ background:#000 }
+  .fs-prev{ left:-6px }
+  .fs-next{ right:-6px }
+  @media (max-width: 640px){
+    .fs-prev{ left:4px } .fs-next{ right:4px }
+  }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <!-- Left: Logo -->
+      <a class="logo" href="#"><img src="./Afaan-Interntional-Logo-White.png" alt="Afaan International"></a>
+
+      <!-- Center: Desktop Nav -->
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="#">HOME</a>
+        <a href="#">CERTIFICATIONS</a>
+        <a href="#">ABOUT</a>
+        <a class="nav-shop" href="#">SHOP</a>
+        <a href="#">CONTACT US</a>
+      </nav>
+
+      <!-- Right: Search + Language + Burger -->
+      <div class="right">
+        <button class="burger" aria-label="Open menu" id="burgerBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <i class="fa-solid fa-magnifying-glass search" aria-hidden="true"></i>
+        <div class="lang-box" role="button" aria-label="Language">
+          English <i class="fa-solid fa-chevron-down"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Panel -->
+    <div class="mobile-panel" id="mobilePanel">
+      <div class="mobile-nav">
+        <a href="#">HOME</a>
+        <a href="#">CERTIFICATIONS</a>
+        <a href="#">ABOUT</a>
+        <a href="#">SHOP <span class="tag">GLOVES</span></a>
+        <a href="#">CONTACT US</a>
+
+        <div class="mobile-tools">
+          <i class="fa-solid fa-magnifying-glass search" aria-hidden="true"></i>
+          <div class="lang-box lang-box--mobile" role="button" aria-label="Language">
+            English <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+
+  <!-- Hero section -->
+
+
+  
+  
+<section class="hero-slider" id="hero">
+  <div class="slides">
+
+    <!-- Slide 1 (content on right like your first image) -->
+    <div class="slide active" style="background-image:url('./hero\ img.jpg');">
+      <div class="panel content-right">
+        <strong class="h1">AFAAN INTERNATIONAL</strong>
+        <span class="sub">Driver Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">TANNER, MANUFACTURER, EXPORTER OF ALL KIND OF LEATHER SAFETY GLOVES &amp; WORK WEAR</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+    <!-- Slide 2 (content on left like your second image) -->
+    <div class="slide" style="background-image:url('./hero\ img.jpg');">
+      <div class="panel content-left">
+        <strong class="h1">AFAAN<br/>INTERNATIONAL</strong>
+        <span class="sub">Welding Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">TANNER, MANUFACTURER, EXPORTER OF ALL KIND OF LEATHER SAFETY GLOVES &amp; WORK WEAR</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+    <!-- Slide 3 (optional extra) -->
+    <div class="slide" style="background-image:url('./hero\ img.jpg');">
+      <div class="panel content-right">
+        <strong class="h1">AFAAN INTERNATIONAL</strong>
+        <span class="sub">Industrial Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">High-performance gloves engineered for durability, comfort and safety across industrial use-cases.</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Arrows -->
+  <button class="arrow left"  aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+  <button class="arrow right" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+
+  <!-- Dots -->
+  <div class="dots" id="dots"></div>
+</section>
+
+
+
+<!-- ===== Under-Hero Feature Slider ===== -->
+<section class="feature-slider" aria-label="Highlights">
+  <div class="fs-wrap">
+
+    <!-- Arrows -->
+    <button class="fs-arrow fs-prev" aria-label="Previous">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <div class="fs-viewport" id="fsViewport">
+      <div class="fs-track" id="fsTrack">
+
+        <!-- Card 1 -->
+        <article class="fs-card">
+          <img class="fs-bg" src="./images/certifications.jpg" alt="">
+          <div class="fs-content">
+            <h3 class="fs-title">Certifications</h3>
+            <p class="fs-desc">
+              We manufacture EU Certified leather working gloves for industry and construction workers
+            </p>
+            <a class="fs-link" href="#">VIEW MORE</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="fs-card">
+          <img class="fs-bg" src="./images/free-samples.jpg" alt="">
+          <div class="fs-content">
+            <h3 class="fs-title">Free Samples</h3>
+            <p class="fs-desc">
+              We offer free delivery of leather working gloves along with free samples for testing purposes
+            </p>
+            <a class="fs-link" href="#">VIEW MORE</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="fs-card">
+          <img class="fs-bg" src="./images/largest-production.jpg" alt="">
+          <div class="fs-content">
+            <h3 class="fs-title">Largest Production</h3>
+            <p class="fs-desc">
+              We have three production facilities with a capacity of manufacturing 15,000 pairs a day
+            </p>
+            <a class="fs-link" href="#">VIEW MORE</a>
+          </div>
+        </article>
+
+        <!-- (Optional) more cards – slider will handle them -->
+        <!--
+        <article class="fs-card">...</article>
+        -->
+
+      </div>
+    </div>
+
+    <button class="fs-arrow fs-next" aria-label="Next">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- javascript -->
+ <script>
+  // ===== Simple Slider Logic =====
+  const slider = document.querySelector('.hero-slider');
+  const slides = Array.from(slider.querySelectorAll('.slide'));
+  const btnPrev = slider.querySelector('.arrow.left');
+  const btnNext = slider.querySelector('.arrow.right');
+  const dotsWrap = document.getElementById('dots');
+
+  let index = 0;
+  let timer = null;
+  const AUTOPLAY_MS = 5500;
+
+  // build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i===0 ? ' active':'');
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function setActive(i){
+    slides.forEach((s, idx) => s.classList.toggle('active', idx===i));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx===i));
+    index = i;
+  }
+  function next(){ setActive((index+1) % slides.length); }
+  function prev(){ setActive((index-1+slides.length) % slides.length); }
+  function goTo(i){ setActive((i+slides.length) % slides.length); }
+
+  btnNext.addEventListener('click', () => { next(); restart(); });
+  btnPrev.addEventListener('click', () => { prev(); restart(); });
+
+  // autoplay
+  function start(){ timer = setInterval(next, AUTOPLAY_MS); }
+  function stop(){ clearInterval(timer); timer = null; }
+  function restart(){ stop(); start(); }
+  start();
+
+  // pause on hover / resume on leave
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  // swipe support
+  let startX = 0, isTouch=false;
+  slider.addEventListener('touchstart', (e)=>{ isTouch=true; startX = e.touches[0].clientX; stop(); }, {passive:true});
+  slider.addEventListener('touchmove', (e)=>{ if(!isTouch) return; }, {passive:true});
+  slider.addEventListener('touchend', (e)=>{
+    if(!isTouch) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40){ dx>0 ? prev() : next(); }
+    isTouch=false; start();
+  });
+
+  // keyboard
+  window.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') { next(); restart(); }
+    if(e.key === 'ArrowLeft')  { prev(); restart(); }
+  });
+
+
+
+
+//   under hero
+
+
+
+  // Lightweight slider controls using scroll-snap
+  const viewport = document.getElementById('fsViewport');
+  const track = document.getElementById('fsTrack');
+  const prevBtn = document.querySelector('.fs-prev');
+  const nextBtn = document.querySelector('.fs-next');
+
+  const GAP = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gap')) || 24;
+
+  function cardWidth(){
+    const card = track.querySelector('.fs-card');
+    if (!card) return viewport.clientWidth;
+    const style = getComputedStyle(card);
+    const w = card.getBoundingClientRect().width + GAP;
+    return w;
+  }
+
+  function scrollByCards(n){
+    viewport.scrollBy({left: n * cardWidth(), behavior: 'smooth'});
+  }
+
+  prevBtn.addEventListener('click', ()=> scrollByCards(-1));
+  nextBtn.addEventListener('click', ()=> scrollByCards(+1));
+
+  // Autoplay (pause on hover / touch)
+  let timer;
+  function start(){ timer = setInterval(()=> scrollByCards(+1), 4500); }
+  function stop(){ clearInterval(timer); }
+  start();
+
+  viewport.addEventListener('mouseenter', stop);
+  viewport.addEventListener('mouseleave', start);
+  viewport.addEventListener('touchstart', stop, {passive:true});
+  viewport.addEventListener('touchend', start);
+
+  // Keyboard support when viewport focused
+  viewport.tabIndex = 0;
+  viewport.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') scrollByCards(+1);
+    if(e.key === 'ArrowLeft')  scrollByCards(-1);
+  });
+
+</script>
+
+</body>
+</html>
