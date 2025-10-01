@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AFAAN Header</title>
 
   <!-- Google Fonts -->
@@ -11,136 +11,370 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    :root {
-      --bg: #000;
-      --text: #fff;
-      --box: #0c0c0c;
-      --border: #333;
-      --gold: #c7981d;
+    :root{
+      --bg:#000;
+      --text:#fff;
+      --box:#0c0c0c;
+      --border:#333;
+      --gold:#c7981d;
     }
 
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Poppins', sans-serif; background: #111; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Poppins',sans-serif;background:#111;color:var(--text)}
 
-    header {
-      background: var(--bg);
-      height: 110px;
+    /* ===== Header (desktop baseline) ===== */
+    header{
+      background:var(--bg);
+      height:110px;
+      display:flex;
+      align-items:center;
+      border-top:1px solid #2b1a1a;
+      position:relative;
+      z-index:20;
+    }
+    .container{
+      width:92%;
+      max-width:1320px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    /* Left: Logo */
+    .logo img{width:220px;display:block}
+
+    /* Center: Nav */
+    nav.nav-desktop{
+      display:flex;
+      gap:27px;
+      flex:1;
+      justify-content:center;
+      align-items:center;
+    }
+    nav.nav-desktop a{
+      color:var(--text);
+      font-weight:500;
+      font-size:14px;
+      text-decoration:none;
+      position:relative;
+      white-space:nowrap;
+    }
+    .nav-shop{position:relative}
+    .nav-shop::before{
+      content:"GLOVES";
+      position:absolute;
+      top:-20px; left:50%; transform:translateX(-50%);
+      background:var(--gold); color:#fff;
+      font-size:11px; font-weight:600;
+      padding:2px 6px;
+      border-radius:2px;
+    }
+
+    /* Right: Search + Language box */
+    .right{display:flex;align-items:center;gap:18px}
+    .search{color:#fff;font-size:20px;cursor:pointer;line-height:1}
+    .lang-box{
+      background:var(--box);
+      border:1px solid var(--border);
+      padding:10px 14px;
+      min-width:120px;
+      display:flex;align-items:center;justify-content:space-between;
+      font-size:15px;font-weight:500;cursor:pointer;border-radius:2px;
+    }
+    .lang-box i{margin-left:8px;font-size:12px}
+
+    /* ===== Mobile / Tablet Controls ===== */
+    .burger{
+      display:none; /* shown on <= 992px */
+      width:42px;height:42px;border:1px solid #222;border-radius:6px;
+      align-items:center;justify-content:center;cursor:pointer;
+      color:#fff;background:#0b0b0b;
+    }
+
+    /* Mobile menu panel (hidden by default) */
+    .mobile-panel{
+      position:fixed; left:0; right:0; top:110px;
+      background:#000; border-top:1px solid #1e1e1e;
+      transform:translateY(-8px); opacity:0; visibility:hidden;
+      transition:opacity .2s ease, transform .2s ease, visibility .2s;
+      z-index:15;
+    }
+    .mobile-panel.open{
+      transform:translateY(0); opacity:1; visibility:visible;
+    }
+    .mobile-nav{
+      width:92%; max-width:1320px; margin:0 auto; padding:14px 0 18px;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    .mobile-nav a{
+      color:#fff; text-decoration:none; font-weight:500; font-size:16px;
+      padding:10px 4px; display:flex; align-items:center; gap:10px;
+      border-bottom:1px solid #141414;
+    }
+    .tag{
+      background:var(--gold); color:#fff; font-size:10px; font-weight:700;
+      padding:2px 6px; border-radius:2px; margin-left:auto;
+    }
+    .mobile-tools{
+      display:flex; gap:12px; align-items:center; padding:12px 0 2px;
+    }
+    .lang-box--mobile{flex:1}
+
+    /* ====== Responsiveness ====== */
+
+    /* Large laptops: tighten a bit */
+    @media (max-width: 1200px){
+      .logo img{width:200px}
+      nav.nav-desktop{gap:22px}
+      .lang-box{min-width:110px;padding:9px 12px}
+      header{height:100px}
+      .mobile-panel{top:100px}
+    }
+
+    /* Tablets: show burger, hide desktop nav */
+    @media (max-width: 992px){
+      header{height:88px}
+      .mobile-panel{top:88px}
+      .logo img{width:185px}
+      nav.nav-desktop{display:none}
+      .burger{display:flex}
+      .right{gap:12px}
+      .lang-box{padding:8px 10px;min-width:100px;font-size:14px}
+    }
+
+    /* Phones: stack tighter */
+    @media (max-width: 768px){
+      .container{gap:10px}
+      .logo img{width:165px}
+      .search{font-size:18px}
+      .lang-box{padding:8px 10px;min-width:92px;font-size:13px}
+      .mobile-nav a{font-size:15px}
+    }
+
+    @media (max-width: 480px){
+      .logo img{width:150px}
+      .lang-box{display:none} /* keep top-right clean on very small */
+      .mobile-tools .lang-box{display:flex}
+      .right{gap:8px}
+    }
+
+
+
+    /* hero section */
+
+    .hero{
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      background: url('./gloves-bg.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
-      border-top: 1px solid #2b1a1a;
+      justify-content: flex-end;
     }
 
-    .container {
-      width: 92%;
-      max-width: 1320px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .overlay{
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.4);
     }
 
-    /* Logo */
-    .logo img {
-      width: 220px;
+    .hero-content{
+      position: relative;
+      max-width: 550px;
+      margin-right: 6%;
+      background: rgba(0,0,0,0.6);
+      padding: 30px;
+      color: #fff;
+    }
+
+    .hero-content h1{
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .hero-content h1 span{
+      color: #c7981d;
       display: block;
     }
 
-    /* Nav */
-    nav {
-      display: flex;
-      gap: 27px;
-      flex: 1;
-      justify-content: center;
-    }
-
-    nav a {
-      color: var(--text);
-      font-weight: 500;
-      font-size: 14px;
-      text-decoration: none;
-      position: relative;
-    }
-
-    /* GLOVES badge above SHOP */
-    .nav-shop {
-      position: relative;
-    }
-
-    .nav-shop::before {
-      content: "GLOVES";
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--gold);
+    .hero-content .tagline{
+      display: inline-block;
+      background: #c7981d;
       color: #fff;
-      font-size: 11px;
       font-weight: 600;
-      padding: 2px 6px;
+      padding: 8px 16px;
+      margin: 20px 0;
+      font-size: 18px;
     }
 
-    /* Right side */
-    .right {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .search {
-      color: #fff;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .lang-box {
-      background: var(--box);
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-      color: var(--text);
+    .hero-content p{
       font-size: 15px;
-      font-weight: 500;
-      min-width: 120px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
-    .lang-box i {
-      margin-left: 8px;
-      font-size: 12px;
+    .hero-content .btn{
+      display: inline-block;
+      background: #c7981d;
+      color: #fff;
+      padding: 12px 22px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Slider arrows */
+    .arrow{
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+    }
+    .arrow.left{left: 20px;}
+    .arrow.right{right: 20px;}
+
+    /* Responsive */
+    @media(max-width:768px){
+      .hero{justify-content:center;}
+      .hero-content{margin:0 20px;}
+      .hero-content h1{font-size:28px;}
+      .hero-content .tagline{font-size:16px;}
+    }
+    @media(max-width:480px){
+      .hero-content{padding:20px;}
+      .hero-content h1{font-size:24px;}
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="container">
+  <header>
+    <div class="container">
+      <!-- Left: Logo -->
+      <a class="logo" href="#"><img src="./Afaan-Interntional-Logo-White.png" alt="Afaan International"></a>
 
-    <!-- Logo -->
-    <div class="logo">
-      <img src="./Afaan-Interntional-Logo-White.png" alt="Afaan International">
-    </div>
+      <!-- Center: Desktop Nav -->
+      <nav class="nav-desktop" aria-label="Primary">
+        <a href="#">HOME</a>
+        <a href="#">CERTIFICATIONS</a>
+        <a href="#">ABOUT</a>
+        <a class="nav-shop" href="#">SHOP</a>
+        <a href="#">CONTACT US</a>
+      </nav>
 
-    <!-- Navigation -->
-    <nav>
-      <a href="#">HOME</a>
-      <a href="#">CERTIFICATIONS</a>
-      <a href="#">ABOUT</a>
-      <a class="nav-shop" href="#">SHOP</a>
-      <a href="#">CONTACT US</a>
-    </nav>
-
-    <!-- Right Side -->
-    <div class="right">
-      <i class="fa-solid fa-magnifying-glass search"></i>
-      <div class="lang-box">
-        English <i class="fa-solid fa-chevron-down"></i>
+      <!-- Right: Search + Language + Burger -->
+      <div class="right">
+        <button class="burger" aria-label="Open menu" id="burgerBtn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <i class="fa-solid fa-magnifying-glass search" aria-hidden="true"></i>
+        <div class="lang-box" role="button" aria-label="Language">
+          English <i class="fa-solid fa-chevron-down"></i>
+        </div>
       </div>
     </div>
 
-  </div>
-</header>
+    <!-- Mobile Panel -->
+    <div class="mobile-panel" id="mobilePanel">
+      <div class="mobile-nav">
+        <a href="#">HOME</a>
+        <a href="#">CERTIFICATIONS</a>
+        <a href="#">ABOUT</a>
+        <a href="#">SHOP <span class="tag">GLOVES</span></a>
+        <a href="#">CONTACT US</a>
+
+        <div class="mobile-tools">
+          <i class="fa-solid fa-magnifying-glass search" aria-hidden="true"></i>
+          <div class="lang-box lang-box--mobile" role="button" aria-label="Language">
+            English <i class="fa-solid fa-chevron-down"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+
+
+  <!-- Hero section -->
+
+
+  
+  <section class="hero">
+    <div class="overlay"></div>
+
+    <!-- Left Arrow -->
+    <div class="arrow left"><i class="fa-solid fa-chevron-left"></i></div>
+
+    <!-- Content -->
+     <img src="./hero img.jpg" alt="">
+    <div class="hero-content">
+      <h1>AFAAN INTERNATIONAL <span>Driver Gloves</span></h1>
+      <div class="tagline">Professional Range</div>
+      <p>TANNER, MANUFACTURER, EXPORTER OF ALL KIND OF LEATHER SAFETY GLOVES & WORK WEAR</p>
+      <a href="#" class="btn">SHOP NOW</a>
+    </div>
+
+    <!-- Right Arrow -->
+    <div class="arrow right"><i class="fa-solid fa-chevron-right"></i></div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- javascript -->
+  <script>
+    // Mobile menu toggle
+    const burger = document.getElementById('burgerBtn');
+    const panel  = document.getElementById('mobilePanel');
+
+    burger.addEventListener('click', () => {
+      const open = panel.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // Optional: close panel when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!panel.contains(e.target) && !burger.contains(e.target)) {
+        panel.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Optional: close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        panel.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
 
 </body>
 </html>
