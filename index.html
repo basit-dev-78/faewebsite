@@ -164,92 +164,116 @@
 
     /* hero section */
 
-    .hero{
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      background: url('./gloves-bg.jpg') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
+      :root{
+    --gold:#c7981d;
+    --panel:rgba(0,0,0,.55);
+    --panel-strong:rgba(0,0,0,.65);
+    --white:#fff;
+    --muted:#cfd2d6;
+    --arrow-bg:rgba(0,0,0,.35);
+    --arrow-bg-hover:rgba(0,0,0,.55);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family: "Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#111;color:#fff}
 
-    .overlay{
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-    }
+  /* ===== Slider ===== */
+  .hero-slider{
+    position:relative;
+    width:100%;
+    height:100vh;               /* full screen hero */
+    min-height:540px;
+    overflow:hidden;
+  }
+  .slides{
+    position:relative; height:100%;
+  }
+  .slide{
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+    opacity:0; transform:scale(1.02);
+    transition:opacity .6s ease, transform .8s ease;
+  }
+  .slide.active{
+    opacity:1; transform:scale(1);
+    z-index:2;
+  }
 
-    .hero-content{
-      position: relative;
-      max-width: 550px;
-      margin-right: 6%;
-      background: rgba(0,0,0,0.6);
-      padding: 30px;
-      color: #fff;
-    }
+  /* gradient soft vignette for readability */
+  .slide::after{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(1000px 100% at 20% 50%, transparent 0, rgba(0,0,0,.35) 70%),
+                linear-gradient( to right, rgba(0,0,0,.25), rgba(0,0,0,.15) 40%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.35) );
+    pointer-events:none;
+  }
 
-    .hero-content h1{
-      font-size: 36px;
-      font-weight: 700;
-      line-height: 1.3;
-    }
-    .hero-content h1 span{
-      color: #c7981d;
-      display: block;
-    }
+  /* ===== Content panel ===== */
+  .panel{
+    position:absolute; top:50%;
+    transform:translateY(-50%);
+    width:min(680px, 92vw);
+    background:var(--panel);
+    padding:34px 30px;
+    backdrop-filter:saturate(110%) blur(1px);
+  }
+  .content-right{ right:6%; }
+  .content-left { left:6%;  }
+  .panel strong.h1{
+    display:block; font-weight:800; line-height:1.06;
+    font-size: clamp(28px, 4.6vw, 56px);
+    letter-spacing:.5px;
+  }
+  .panel .sub{
+    display:block; color:var(--gold); font-weight:800;
+    font-size: clamp(22px, 4vw, 48px);
+    margin-top:6px;
+  }
+  .badge{
+    display:inline-block; margin:18px 0 14px;
+    background:var(--gold); color:#fff; font-weight:700;
+    padding:10px 18px; border-radius:6px;
+    font-size: clamp(16px, 2.2vw, 26px);
+    box-shadow:0 6px 0 rgba(199,152,29,.35);
+  }
+  .desc{
+    color:#e7e7e7; line-height:1.7; letter-spacing:.3px;
+    font-size: clamp(13px, 1.5vw, 16px);
+  }
+  .cta{
+    display:inline-block; margin-top:22px;
+    background:var(--gold); color:#fff; text-decoration:none;
+    font-weight:700; padding:13px 22px; border-radius:4px;
+  }
 
-    .hero-content .tagline{
-      display: inline-block;
-      background: #c7981d;
-      color: #fff;
-      font-weight: 600;
-      padding: 8px 16px;
-      margin: 20px 0;
-      font-size: 18px;
-    }
+  /* ===== Arrows ===== */
+  .arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; background:var(--arrow-bg);
+    cursor:pointer; z-index:5; transition:background .2s ease;
+  }
+  .arrow:hover{ background:var(--arrow-bg-hover); }
+  .arrow.left{ left:20px; }
+  .arrow.right{ right:20px; }
 
-    .hero-content p{
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
+  /* ===== Dots ===== */
+  .dots{ position:absolute; left:50%; transform:translateX(-50%); bottom:18px; display:flex; gap:10px; z-index:4;}
+  .dot{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(255,255,255,.45); cursor:pointer;
+  }
+  .dot.active{ background:#fff; }
 
-    .hero-content .btn{
-      display: inline-block;
-      background: #c7981d;
-      color: #fff;
-      padding: 12px 22px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* Slider arrows */
-    .arrow{
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #fff;
-      font-size: 30px;
-      cursor: pointer;
-      background: rgba(0,0,0,0.4);
-      padding: 10px;
-    }
-    .arrow.left{left: 20px;}
-    .arrow.right{right: 20px;}
-
-    /* Responsive */
-    @media(max-width:768px){
-      .hero{justify-content:center;}
-      .hero-content{margin:0 20px;}
-      .hero-content h1{font-size:28px;}
-      .hero-content .tagline{font-size:16px;}
-    }
-    @media(max-width:480px){
-      .hero-content{padding:20px;}
-      .hero-content h1{font-size:24px;}
-    }
+  /* ===== Responsive tweaks ===== */
+  @media (max-width: 992px){
+    .panel{ padding:26px 24px; }
+  }
+  @media (max-width: 640px){
+    .hero-slider{ min-height:520px }
+    .panel{ width:92vw; left:50%!important; right:auto; transform:translate(-50%,-50%);} /* center panel on small screens */
+    .slide::after{ background: linear-gradient( to bottom, rgba(0,0,0,.15), rgba(0,0,0,.6) 60% ); }
+  }
   </style>
 </head>
 <body>
@@ -306,24 +330,52 @@
 
 
   
-  <section class="hero">
-    <div class="overlay"></div>
+  
+<section class="hero-slider" id="hero">
+  <div class="slides">
 
-    <!-- Left Arrow -->
-    <div class="arrow left"><i class="fa-solid fa-chevron-left"></i></div>
-
-    <!-- Content -->
-     <img src="./hero img.jpg" alt="">
-    <div class="hero-content">
-      <h1>AFAAN INTERNATIONAL <span>Driver Gloves</span></h1>
-      <div class="tagline">Professional Range</div>
-      <p>TANNER, MANUFACTURER, EXPORTER OF ALL KIND OF LEATHER SAFETY GLOVES & WORK WEAR</p>
-      <a href="#" class="btn">SHOP NOW</a>
+    <!-- Slide 1 (content on right like your first image) -->
+    <div class="slide active" style="background-image:url('./hero\ img.jpg');">
+      <div class="panel content-right">
+        <strong class="h1">AFAAN INTERNATIONAL</strong>
+        <span class="sub">Driver Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">TANNER, MANUFACTURER, EXPORTER OF ALL KIND OF LEATHER SAFETY GLOVES &amp; WORK WEAR</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
     </div>
 
-    <!-- Right Arrow -->
-    <div class="arrow right"><i class="fa-solid fa-chevron-right"></i></div>
-  </section>
+    <!-- Slide 2 (content on left like your second image) -->
+    <div class="slide" style="background-image:url('./hero\ img.jpg');">
+      <div class="panel content-left">
+        <strong class="h1">AFAAN<br/>INTERNATIONAL</strong>
+        <span class="sub">Welding Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">TANNER, MANUFACTURER, EXPORTER OF ALL KIND OF LEATHER SAFETY GLOVES &amp; WORK WEAR</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+    <!-- Slide 3 (optional extra) -->
+    <div class="slide" style="background-image:url('./hero\ img.jpg');">
+      <div class="panel content-right">
+        <strong class="h1">AFAAN INTERNATIONAL</strong>
+        <span class="sub">Industrial Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">High-performance gloves engineered for durability, comfort and safety across industrial use-cases.</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Arrows -->
+  <button class="arrow left"  aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+  <button class="arrow right" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+
+  <!-- Dots -->
+  <div class="dots" id="dots"></div>
+</section>
 
 
 
@@ -349,32 +401,66 @@
 
 
 <!-- javascript -->
-  <script>
-    // Mobile menu toggle
-    const burger = document.getElementById('burgerBtn');
-    const panel  = document.getElementById('mobilePanel');
+ <script>
+  // ===== Simple Slider Logic =====
+  const slider = document.querySelector('.hero-slider');
+  const slides = Array.from(slider.querySelectorAll('.slide'));
+  const btnPrev = slider.querySelector('.arrow.left');
+  const btnNext = slider.querySelector('.arrow.right');
+  const dotsWrap = document.getElementById('dots');
 
-    burger.addEventListener('click', () => {
-      const open = panel.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
+  let index = 0;
+  let timer = null;
+  const AUTOPLAY_MS = 5500;
 
-    // Optional: close panel when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!panel.contains(e.target) && !burger.contains(e.target)) {
-        panel.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      }
-    });
+  // build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('span');
+    d.className = 'dot' + (i===0 ? ' active':'');
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots = Array.from(dotsWrap.children);
 
-    // Optional: close on escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        panel.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  </script>
+  function setActive(i){
+    slides.forEach((s, idx) => s.classList.toggle('active', idx===i));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx===i));
+    index = i;
+  }
+  function next(){ setActive((index+1) % slides.length); }
+  function prev(){ setActive((index-1+slides.length) % slides.length); }
+  function goTo(i){ setActive((i+slides.length) % slides.length); }
+
+  btnNext.addEventListener('click', () => { next(); restart(); });
+  btnPrev.addEventListener('click', () => { prev(); restart(); });
+
+  // autoplay
+  function start(){ timer = setInterval(next, AUTOPLAY_MS); }
+  function stop(){ clearInterval(timer); timer = null; }
+  function restart(){ stop(); start(); }
+  start();
+
+  // pause on hover / resume on leave
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  // swipe support
+  let startX = 0, isTouch=false;
+  slider.addEventListener('touchstart', (e)=>{ isTouch=true; startX = e.touches[0].clientX; stop(); }, {passive:true});
+  slider.addEventListener('touchmove', (e)=>{ if(!isTouch) return; }, {passive:true});
+  slider.addEventListener('touchend', (e)=>{
+    if(!isTouch) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40){ dx>0 ? prev() : next(); }
+    isTouch=false; start();
+  });
+
+  // keyboard
+  window.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') { next(); restart(); }
+    if(e.key === 'ArrowLeft')  { prev(); restart(); }
+  });
+</script>
 
 </body>
 </html>
