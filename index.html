@@ -1,36 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<style>
-    *{
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFAAN Header</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #000;
+      --text: #fff;
+      --box: #0c0c0c;
+      --border: #333;
+      --gold: #c7981d;
     }
-.header{
-    height: 18vh;
-    width: 100vw;
-    background: #000;
-    display: flex;
-    align-items: center;
 
-}
-.logo{
-    /* height: 81px; */
-    width: 219px;
-    margin-left: 50px;
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Poppins', sans-serif; background: #111; }
 
-}
-</style>
+    header {
+      background: var(--bg);
+      height: 110px;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #2b1a1a;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1320px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Logo */
+    .logo img {
+      width: 220px;
+      display: block;
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      gap: 27px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    nav a {
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+      text-decoration: none;
+      position: relative;
+    }
+
+    /* GLOVES badge above SHOP */
+    .nav-shop {
+      position: relative;
+    }
+
+    .nav-shop::before {
+      content: "GLOVES";
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+    }
+
+    /* Right side */
+    .right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .search {
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .lang-box {
+      background: var(--box);
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 500;
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .lang-box i {
+      margin-left: 8px;
+      font-size: 12px;
+    }
+  </style>
+</head>
 <body>
-    <header>
-        <div class="header">
-            <img class="logo" src="./Afaan-Interntional-Logo-White.png" alt="">
-        </div>
-    </header>
+
+<header>
+  <div class="container">
+
+    <!-- Logo -->
+    <div class="logo">
+      <img src="./Afaan-Interntional-Logo-White.png" alt="Afaan International">
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+      <a href="#">HOME</a>
+      <a href="#">CERTIFICATIONS</a>
+      <a href="#">ABOUT</a>
+      <a class="nav-shop" href="#">SHOP</a>
+      <a href="#">CONTACT US</a>
+    </nav>
+
+    <!-- Right Side -->
+    <div class="right">
+      <i class="fa-solid fa-magnifying-glass search"></i>
+      <div class="lang-box">
+        English <i class="fa-solid fa-chevron-down"></i>
+      </div>
+    </div>
+
+  </div>
+</header>
+
 </body>
 </html>
