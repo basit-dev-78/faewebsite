@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AFAAN — Header + Crisp Hero Slider</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- Preload first hero image (fast & crisp) -->
+<link rel="preload" as="image"
+      href="/images/driver-1920.webp"
+      imagesrcset="/images/driver-1280.webp 1280w,
+                   /images/driver-1920.webp 1920w,
+                   /images/driver-2560.webp 2560w,
+                   /images/driver-3840.webp 3840w"
+      imagesizes="100vw" />
+
+<style>
+  :root{
+    --bg:#000; --text:#fff; --box:#0c0c0c; --border:#333; --gold:#c7981d;
+    --panel:rgba(0,0,0,.55); --arrow-bg:rgba(0,0,0,.35); --arrow-bg-hover:rgba(0,0,0,.55);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#111;color:#fff}
+
+  /* ===== Header (your same layout) ===== */
+  header{background:var(--bg); height:110px; display:flex; align-items:center; border-top:1px solid #2b1a1a; position:relative; z-index:20;}
+  .container{width:92%;max-width:1320px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .logo img{width:220px;display:block}
+  nav.nav-desktop{display:flex;gap:27px;flex:1;justify-content:center;align-items:center}
+  nav.nav-desktop a{color:#fff;font-weight:500;font-size:14px;text-decoration:none;white-space:nowrap}
+  .nav-shop{position:relative}
+  .nav-shop::before{content:"GLOVES";position:absolute;top:-20px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;font-size:11px;font-weight:600;padding:2px 6px;border-radius:2px}
+  .right{display:flex;align-items:center;gap:18px}
+  .search{color:#fff;font-size:20px;cursor:pointer}
+  .lang-box{background:var(--box);border:1px solid var(--border);padding:10px 14px;min-width:120px;display:flex;align-items:center;justify-content:space-between;font-size:15px;font-weight:500;border-radius:2px}
+  .burger{display:none;width:42px;height:42px;border:1px solid #222;border-radius:6px;align-items:center;justify-content:center;background:#0b0b0b}
+  @media (max-width:1200px){header{height:100px}.logo img{width:200px}}
+  @media (max-width:992px){header{height:88px}.logo img{width:185px}nav.nav-desktop{display:none}.burger{display:flex}}
+
+  /* ===== CRISP HERO SLIDER (uses <img> with srcset) ===== */
+  .hero-slider{position:relative;width:100%;height:100vh;min-height:560px;overflow:hidden}
+  .slides{position:relative;height:100%}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
+  .slide.active{opacity:1;z-index:2}
+
+  /* Actual image element — allows srcset & perfect scaling */
+  .slide > picture, .slide > img{position:absolute;inset:0;width:100%;height:100%}
+  .slide-img{
+    width:100%;height:100%;object-fit:cover;object-position:center;
+    /* better sharpness on Chromium/Firefox where possible */
+    image-rendering:auto;
+    -webkit-backface-visibility:hidden; backface-visibility:hidden;
+    transform:translateZ(0); /* avoid softening from subpixel compositing */
+  }
+
+  /* soft vignette like your screenshot */
+  .slide::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(1200px 100% at 20% 50%, transparent 0, rgba(0,0,0,.35) 70%),
+      linear-gradient(to right, rgba(0,0,0,.25), rgba(0,0,0,.15) 40%, rgba(0,0,0,.2) 60%, rgba(0,0,0,.35));
+  }
+
+  /* Content panel */
+  .panel{position:absolute;top:50%;transform:translateY(-50%);width:min(680px,92vw);background:var(--panel);padding:34px 30px}
+  .content-right{right:6%} .content-left{left:6%}
+  .panel .h1{display:block;font-weight:800;line-height:1.06;font-size:clamp(28px,4.6vw,56px)}
+  .panel .sub{display:block;color:var(--gold);font-weight:800;font-size:clamp(22px,4vw,48px);margin-top:6px}
+  .badge{display:inline-block;margin:18px 0 14px;background:var(--gold);color:#fff;font-weight:700;padding:10px 18px;border-radius:6px;font-size:clamp(16px,2.2vw,26px);box-shadow:0 6px 0 rgba(199,152,29,.35)}
+  .desc{color:#e7e7e7;line-height:1.7;letter-spacing:.3px;font-size:clamp(13px,1.5vw,16px)}
+  .cta{display:inline-block;margin-top:22px;background:var(--gold);color:#fff;text-decoration:none;font-weight:700;padding:13px 22px;border-radius:4px}
+
+  /* Arrows + dots */
+  .arrow{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:var(--arrow-bg);cursor:pointer;z-index:5}
+  .arrow:hover{background:var(--arrow-bg-hover)}
+  .arrow.left{left:20px} .arrow.right{right:20px}
+  .dots{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;display:flex;gap:10px;z-index:4}
+  .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.45);cursor:pointer}
+  .dot.active{background:#fff}
+
+  /* Mobile: center panel */
+  @media (max-width:640px){
+    .hero-slider{min-height:520px}
+    .panel{width:92vw;left:50%!important;right:auto;transform:translate(-50%,-50%)}
+    .slide::after{background:linear-gradient(to bottom, rgba(0,0,0,.12), rgba(0,0,0,.6) 65%)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <a class="logo" href="#"><img src="./Afaan-Interntional-Logo-White.png" alt="Afaan International" /></a>
+    <nav class="nav-desktop" aria-label="Primary">
+      <a href="#">HOME</a><a href="#">CERTIFICATIONS</a><a href="#">ABOUT</a>
+      <a class="nav-shop" href="#">SHOP</a><a href="#">CONTACT US</a>
+    </nav>
+    <div class="right">
+      <button class="burger" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      <i class="fa-solid fa-magnifying-glass search"></i>
+      <div class="lang-box">English <i class="fa-solid fa-chevron-down"></i></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Hero Slider (CRISP) ===== -->
+<section class="hero-slider" id="hero">
+    <img src="" alt="">
+  <div class="slides">
+
+    <!-- Slide 1 (RIGHT panel) -->
+    <div class="slide active">
+      <picture>
+        <!-- AVIF/WebP first, JPG fallback. Provide multiple widths so browser picks the sharpest. -->
+        <source type="image/avif"
+                srcset=".avif 1280w,
+                        /images/driver-1920.avif 1920w,
+                        /images/driver-2560.avif 2560w,
+                        /images/driver-3840.avif 3840w"
+                sizes="100vw">
+        <source type="image/webp"
+                srcset="/images/driver-1280.webp 1280w,
+                        /images/driver-1920.webp 1920w,
+                        /images/driver-2560.webp 2560w,
+                        /images/driver-3840.webp 3840w"
+                sizes="100vw">
+        <img class="slide-img"
+             src="/images/driver-1920.jpg"
+             srcset="/images/driver-1280.jpg 1280w,
+                     /images/driver-1920.jpg 1920w,
+                     /images/driver-2560.jpg 2560w,
+                     /images/driver-3840.jpg 3840w"
+             sizes="100vw"
+             alt="Driver Gloves — hero"
+             fetchpriority="high" decoding="async" />
+      </picture>
+
+      <div class="panel content-right">
+        <strong class="h1">AFAAN INTERNATIONAL</strong>
+        <span class="sub">Driver Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">TANNER, MANUFACTURER, EXPORTER OF ALL KIND OF LEATHER SAFETY GLOVES &amp; WORK WEAR</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+    <!-- Slide 2 (LEFT panel) -->
+    <div class="slide">
+      <picture>
+        <source type="image/avif"
+                srcset="/images/welding-1280.avif 1280w,
+                        /images/welding-1920.avif 1920w,
+                        /images/welding-2560.avif 2560w,
+                        /images/welding-3840.avif 3840w"
+                sizes="100vw">
+        <source type="image/webp"
+                srcset="/images/welding-1280.webp 1280w,
+                        /images/welding-1920.webp 1920w,
+                        /images/welding-2560.webp 2560w,
+                        /images/welding-3840.webp 3840w"
+                sizes="100vw">
+        <img class="slide-img"
+             src="/images/welding-1920.jpg"
+             srcset="/images/welding-1280.jpg 1280w,
+                     /images/welding-1920.jpg 1920w,
+                     /images/welding-2560.jpg 2560w,
+                     /images/welding-3840.jpg 3840w"
+             sizes="100vw"
+             alt="Welding Gloves — hero"
+             loading="lazy" decoding="async" />
+      </picture>
+
+      <div class="panel content-left">
+        <strong class="h1">AFAAN INTERNATIONAL</strong>
+        <span class="sub">Welding Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">We provide elegant style, high visibility, durable & reflective safety wear.</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+    <!-- Slide 3 (RIGHT panel) -->
+    <div class="slide">
+      <picture>
+        <source type="image/avif"
+                srcset="/images/assembly-1280.avif 1280w,
+                        /images/assembly-1920.avif 1920w,
+                        /images/assembly-2560.avif 2560w,
+                        /images/assembly-3840.avif 3840w"
+                sizes="100vw">
+        <source type="image/webp"
+                srcset="/images/assembly-1280.webp 1280w,
+                        /images/assembly-1920.webp 1920w,
+                        /images/assembly-2560.webp 2560w,
+                        /images/assembly-3840.webp 3840w"
+                sizes="100vw">
+        <img class="slide-img"
+             src="/images/assembly-1920.jpg"
+             srcset="/images/assembly-1280.jpg 1280w,
+                     /images/assembly-1920.jpg 1920w,
+                     /images/assembly-2560.jpg 2560w,
+                     /images/assembly-3840.jpg 3840w"
+             sizes="100vw"
+             alt="Assembly Gloves — hero"
+             loading="lazy" decoding="async" />
+      </picture>
+
+      <div class="panel content-right">
+        <strong class="h1">AFAAN INTERNATIONAL</strong>
+        <span class="sub">Assembly Gloves</span>
+        <span class="badge">Professional Range</span>
+        <p class="desc">High-performance gloves engineered for durability, comfort and safety across industrial use-cases.</p>
+        <a class="cta" href="#">SHOP NOW</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Arrows & dots -->
+  <button class="arrow left" aria-label="Previous"><i class="fa-solid fa-chevron-left"></i></button>
+  <button class="arrow right" aria-label="Next"><i class="fa-solid fa-chevron-right"></i></button>
+  <div class="dots" id="dots"></div>
+</section>
+
+<script>
+  // ===== No-blur Slider (opacity only; no scale) =====
+  const slider = document.querySelector('.hero-slider');
+  const slides = [...slider.querySelectorAll('.slide')];
+  const btnPrev = slider.querySelector('.arrow.left');
+  const btnNext = slider.querySelector('.arrow.right');
+  const dotsWrap = document.getElementById('dots');
+
+  let index = 0, timer = null, AUTOPLAY_MS = 5500;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'dot' + (i===0 ? ' active':'');
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = [...dotsWrap.children];
+
+  function setActive(i){
+    slides.forEach((s, idx) => s.classList.toggle('active', idx===i));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx===i));
+    index = i;
+  }
+  const next = () => setActive((index + 1) % slides.length);
+  const prev = () => setActive((index - 1 + slides.length) % slides.length);
+  const goTo = (i) => setActive((i + slides.length) % slides.length);
+
+  btnNext.addEventListener('click', () => { next(); restart(); });
+  btnPrev.addEventListener('click', () => { prev(); restart(); });
+
+  function start(){ timer = setInterval(next, AUTOPLAY_MS); }
+  function stop(){ clearInterval(timer); timer = null; }
+  function restart(){ stop(); start(); }
+  start();
+  slider.addEventListener('mouseenter', stop);
+  slider.addEventListener('mouseleave', start);
+
+  // touch swipe
+  let startX = 0, touching = false;
+  slider.addEventListener('touchstart', e => { touching = true; startX = e.touches[0].clientX; stop(); }, {passive:true});
+  slider.addEventListener('touchend', e => {
+    if(!touching) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40) (dx > 0 ? prev() : next());
+    touching = false; start();
+  });
+
+  // keyboard
+  window.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { next(); restart(); }
+    if (e.key === 'ArrowLeft')  { prev(); restart(); }
+  });
+</script>
+
+</body>
+</html>
